@@ -8,6 +8,8 @@ variable    epsilon    equal 0.07
 variable    sigma      equal 3.55005321204562
 variable    cutofflj   equal 2.54*1.38^(1/3)
 variable    screencoul equal 2.9
+print $(cutofflj)
+print $(screencoul)
 ###################################################
 
 variable    NA      equal 6.02e23
@@ -40,12 +42,12 @@ pair_coeff	* * ${epsilon} ${sigma}
 pair_modify     mix arithmetic
 
 #velocity        all create 300 61653 dist gaussian
-write_data  modle.data
+#write_data  modle.data
 
-neighbor        2 bin
-neigh_modify    delay 10 every 1
+#neighbor        2 bin
+#neigh_modify    delay 10 every 1
 
 
-min_style       cg
-minimize        0.0 1.0e-8 10000 20000
-write_data  noover.data
+#min_style       cg
+#minimize        0.0 1.0e-8 10000 20000
+#write_data  noover.data
