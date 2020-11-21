@@ -45,7 +45,7 @@ minimize        0.0 1.0e-8 10000 20000
 change_box all z final 0.0 $(1.5*v_boxlen) boundary p p s
 velocity   all create 300 61653 dist gaussian
 variable dz equal ramp(-2,0)
-region bottomplane plane 0 0 -2 0 0 1 move 0 0 v_dz
+region bottomplane plane 0 0 -2 0 0 1 move NULL NULL v_dz
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
 fix        nvt all nvt temp 300.0 300.0 100.0
 run        10000
