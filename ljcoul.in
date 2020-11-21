@@ -36,6 +36,7 @@ set atom 1 charge 6.0
 
 pair_style lj/cut/coul/debye $(1/v_screencoul) ${cutofflj}  $(7*v_screencoul)
 pair_coeff	* * ${epsilon} ${sigma}  
+pair_modify     mix arithmetic
 
 velocity        all create 300 61653 dist gaussian
 write_data  modle.data
