@@ -53,8 +53,8 @@ unfix nvt
 
 change_box all z final 0.0 $(1.5*v_boxlen) boundary p p f
 group   ion region core
-region bottomplane plane 0 0 0 0 0 1
-fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
+#region bottomplane plane 0 0 0 0 0 1
+#fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
 
 variable newcharge equal 6.0
 fix charge ion adapt 1 atom charge v_newcharge
