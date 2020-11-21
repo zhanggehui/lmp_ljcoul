@@ -39,19 +39,18 @@ pair_style lj/cut/coul/debye $(1/v_screencoul) ${cutofflj}  $(7*v_screencoul)
 pair_coeff * * ${epsilon} ${sigma}
 
 min_style       cg
+thermo          100
 minimize        0.0 1.0e-8 10000 20000
 
+change_box all z final 0.0 $(1.5*v_boxlen) boundary p p f
 #velocity   all create 300 61653 dist gaussian
-region bottomplane plane 0 0 -1.0 0 0 1
+region bottomplane plane 0 0 0 0 0 1
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
 fix        nvt all nvt temp 300.0 300.0 100.0
-thermo_style	custom step
-thermo          100
 run        1000
 
 unfix nvt 
 
-change_box all z final 0.0 $(1.5*v_boxlen) boundary p p f
 write_data      bigbox.data
 group   ion region core
 variable newcharge equal 1.0
