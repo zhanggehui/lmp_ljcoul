@@ -51,7 +51,7 @@ write_data      afternvt.data
 
 unfix nvt 
 
-change_box all z final 0.0 $(1.5*v_boxlen) boundary p p f
+change_box all z final -1.0 $(1.5*v_boxlen) boundary p p f
 group   ion region core
 #region bottomplane plane 0 0 0 0 0 1
 #fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
