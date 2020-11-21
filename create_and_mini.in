@@ -1,6 +1,6 @@
 #ljcoul creat system and minimize
 
-variable    rad         equal  20
+variable    rad         equal  5
 variable    boxlen      equal  100
 variable    atom_mass   equal  12.011
 variable    density     equal  1.38*1.0e-24
@@ -39,4 +39,18 @@ pair_coeff	* * ${epsilon} ${sigma}
 
 min_style       cg
 minimize        0.0 1.0e-8 10000 20000
-write_data      mini.data
+
+velocity   all create 300 61653 dist gaussian
+fix        1 all nvt temp 300.0 300.0 100.0
+run        100000
+
+write_data      afternvt.data
+
+unfix 1 
+
+
+#region bottomplane plane  
+#fix wall/region all adapt 1 pair soft a 1 1 v_prefactor
+#fix 2 all adapt 1 pair soft a 1 1 v_prefactor
+#fix 3 all adapt 1 pair soft a 1 1 v_prefactor
+#run        100000
