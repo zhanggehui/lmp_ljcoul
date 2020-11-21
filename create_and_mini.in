@@ -53,7 +53,7 @@ change_box all z final -1.0 $(1.5*v_boxlen) boundary p p f
 write_data      bigbox.data
 group   ion region core
 
-region bottomplane plane 0 0 zlo 0 0 1
+region bottomplane plane 0 0 -1.0 0 0 1
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
 
 variable newcharge equal 1.0
