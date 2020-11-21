@@ -34,15 +34,16 @@ create_atoms 	2 random ${n_shell} 523462   shell
 mass		* ${atom_mass}
 set atom 1 charge 6.0
 
-pair_style lj/cut/coul/debye $(1/v_screencoul) ${cutofflj}  $(7*v_screencoul)
+pair_style lj/cut
+#pair_style lj/cut/coul/debye $(1/v_screencoul) ${cutofflj}  $(7*v_screencoul)
 pair_coeff	* * ${epsilon} ${sigma}  
 pair_modify     mix arithmetic
 
-velocity        all create 300 61653 dist gaussian
+#velocity        all create 300 61653 dist gaussian
 write_data  modle.data
 
 neighbor        2 bin
-#neigh_modify    delay 5 every 1
+neigh_modify    delay 10 every 1
 
 
 min_style       cg
