@@ -56,8 +56,9 @@ group   ion region core
 region bottomplane plane 0 0 0 0 0 1
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
 
-variable newcharge equal 6.0
+variable newcharge equal 1.0
 fix charge ion adapt 1 atom charge v_newcharge
 fix nve all nve
 dump 1 all atom 100 explo.dump
+timestep 0.1
 run        10000
