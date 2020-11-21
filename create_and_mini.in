@@ -27,7 +27,6 @@ create_box 	2 box
 
 region 		core  cylinder  z $(v_boxlen/2) $(v_boxlen/2) ${rad} 0.0 EDGE
 region 	   shell  cylinder  z $(v_boxlen/2) $(v_boxlen/2) ${rad} 0.0 EDGE side out
-group ion regiono core
 
 create_atoms 	1 random ${n_core}   312334   core   
 create_atoms 	2 random ${n_shell}  687967   shell  
@@ -43,15 +42,16 @@ min_style       cg
 minimize        0.0 1.0e-8 10000 20000
 
 velocity   all create 300 61653 dist gaussian
-fix        1 all nvt temp 300.0 300.0 100.0
+fix        nvt all nvt temp 300.0 300.0 100.0
 run        100000
 
 write_data      afternvt.data
 
-unfix 1 
+unfix nvt 
 
-
-region bottomplane plane 0 0 0 0 0 1  
+change_box z final 0.0 $(1.5*v_boxlen) boundary p p f
+group   ion region core
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
-fix charge ion adapt 1 atom charge 6.0 
+fix charge ion adapt 1 atom charge 6.0
+fix nve all nve
 run        100000
