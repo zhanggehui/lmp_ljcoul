@@ -17,7 +17,7 @@ variable    n_shell equal "floor(v_density*v_boxlen^3/v_mass - v_n_core)"
 
 units    	real
 boundary 	p p p
-
+newton      off
 #lattice 	bcc 2.8665
 
 region 		box   block 0.0 ${boxlen} 0.0 ${boxlen} 0.0 ${boxlen}
@@ -42,7 +42,7 @@ velocity        all create 300 61653 dist gaussian
 write_data  modle.data
 
 neighbor        2 bin
-neigh_modify    delay 5 every 1
+#neigh_modify    delay 5 every 1
 
 
 min_style       cg
