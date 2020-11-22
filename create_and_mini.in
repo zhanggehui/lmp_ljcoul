@@ -1,4 +1,4 @@
-#ljcoul creat system and minimize
+#ljcoul
 
 variable    rad         equal  5
 variable    boxlen      equal  100
@@ -47,8 +47,8 @@ fix        nvt all nvt temp 300.0 300.0 100.0
 run 100000
 unfix nvt 
 
-fix npt all npt temp 300.0 300.0 100.0 iso 1.0 1.0 100.0
-dump 1 all atom 100 explo.dump
+fix npt all npt temp 300.0 300.0 100.0 iso 10.0 10.0 100.0
+dump 1 all atom 100 npt.dump
 run  100000
 #unfix npt 
 
