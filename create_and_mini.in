@@ -47,7 +47,7 @@ fix        nvt all nvt temp 300.0 300.0 100.0
 run 100000
 unfix nvt 
 
-fix npt all npt temp 300.0 300.0 100.0 iso 10.0 10.0 100.0
+fix npt all npt temp 300.0 300.0 100.0 iso 100.0 100.0 100.0
 dump 1 all atom 100 npt.dump
 run  100000
 #unfix npt 
