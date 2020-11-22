@@ -3,7 +3,7 @@
 variable    rad         equal  5
 variable    boxlen      equal  100
 variable    atom_mass   equal  12.011
-variable    density     equal  1.0*1.0e-24
+variable    density     equal  0.1*1.0e-24
 variable    epsilon     equal  0.07
 variable    sigma       equal  3.55005321204562
 variable    cutofflj    equal  3.0*v_sigma
@@ -52,7 +52,7 @@ dump 1 all atom 1000 npt.dump
 run  100000
 
 change_box all z scale 1.5 boundary p p s
-variable dz equal ramp(-2,0)
+variable dz equal ramp(zlo-2,zlo)
 region bottomplane plane 0 0 -2 0 0 1 move NULL NULL v_dz
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
 run        10000
