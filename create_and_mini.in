@@ -57,7 +57,7 @@ region bottomplane plane 0 0 -2 0 0 1 move NULL NULL v_dz
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
 run        10000
 
-#write_data      bigbox.data
+write_data      bigbox.data
 
 #change_box all z final 0.0 $(1.5*v_boxlen) boundary p p f
 #group   ion region core
