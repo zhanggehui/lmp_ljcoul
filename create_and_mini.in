@@ -55,6 +55,8 @@ unfix npt
 
 change_box all boundary p p s 
 change_box all boundary p p f z delta 0.0 40
+thermo_modify lost ignore flush yes
+
 variable dz equal ramp(zlo-2,zlo)
 region bottomplane plane 0 0 -2 0 0 1 move NULL NULL v_dz
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
