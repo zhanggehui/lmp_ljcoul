@@ -53,7 +53,7 @@ dump 1 all atom 1000 npt.dump
 run  100000
 unfix npt
 
-change_box all z delta 0.0 30 boundary p p m
+change_box all boundary p p m z delta 0.0 30
 variable dz equal ramp(zlo-2,zlo)
 region bottomplane plane 0 0 -2 0 0 1 move NULL NULL v_dz
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
