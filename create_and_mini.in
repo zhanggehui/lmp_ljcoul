@@ -39,7 +39,8 @@ pair_style lj/cut/coul/debye $(1/v_screencoul) ${cutofflj}  $(7*v_screencoul)
 pair_coeff * * ${epsilon} ${sigma}
 
 min_style       cg
-thermo          100
+thermo_style  custom step temp etotal press vol
+thermo          1000
 minimize        0.0 1.0e-8 10000 20000
 
 velocity   all create 300 61653 dist gaussian
