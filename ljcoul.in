@@ -57,20 +57,21 @@ change_box all boundary p p s
 change_box all boundary p p f z delta 0.0 40
 thermo_modify lost ignore
 
-variable dz equal ramp(zlo-2,zlo)
-region bottomplane plane 0 0 $(zlo-2) 0 0 1 move NULL NULL v_dz
-fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
+variable dz equal ramp(zlo-1,zlo)
+region bottomplane plane 0 0 $(zlo-1) 0 0 1 move NULL NULL v_dz
+fix wall all wall/region bottomplane lj126 ${epsilon*3} ${sigma} ${cutofflj}
 fix nvt all nvt temp 300.0 300.0 100.0
 run 100000
+unfix wall
 
 region bottomplane2 plane 0 0 $(zlo) 0 0 1
 fix wall all wall/region bottomplane2 lj126 ${epsilon} ${sigma} ${cutofflj}
-write_data      npt.data
+write_data npt.data
 run 100000
 unfix nvt
 undump 1
 
-group  ion region core
+group ion region core
 variable newcharge equal 6.0
 fix charge ion adapt 0 atom charge v_newcharge
 fix nve all nve
