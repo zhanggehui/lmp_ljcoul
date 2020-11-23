@@ -72,4 +72,4 @@ fix charge ion adapt 0 atom charge v_newcharge
 fix nve all nve
 dump 1 all atom 100 explo.dump
 timestep 0.1
-run        10000
+run        100000
