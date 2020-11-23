@@ -62,7 +62,7 @@ undump 1
 
 region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) 1 EDGE EDGE
 group ion region core
-fix charge ion adapt 0 atom charge 6.0
+fix charge ion adapt 0 atom charge $(6.0*1.0)
 fix nve all nve
 dump 1 all atom 100 explo.dump
 timestep 0.1
