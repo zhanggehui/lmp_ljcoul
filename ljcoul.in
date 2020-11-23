@@ -50,7 +50,7 @@ unfix nvt
 
 fix npt all npt temp 300.0 300.0 100.0 iso 0.0 0.0 100.0
 dump 1 all atom 1000 npt.dump
-run  100000
+run 100000
 unfix npt
 
 change_box all boundary p p s 
@@ -76,4 +76,4 @@ fix charge ion adapt 0 atom charge v_newcharge
 fix nve all nve
 dump 1 all atom 100 explo.dump
 timestep 0.1
-run        100000
+run 100000
