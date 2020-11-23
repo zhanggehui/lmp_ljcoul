@@ -67,7 +67,7 @@ unfix nvt
 undump 1
 
 group  ion region core
-variable newcharge equal 1.0
+variable newcharge equal 6.0
 fix charge ion adapt 1 atom charge v_newcharge
 fix nve all nve
 dump 1 all atom 100 explo.dump
