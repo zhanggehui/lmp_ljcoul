@@ -22,7 +22,7 @@ region box block 0.0 ${boxlen} 0.0 ${boxlen} 0.0 ${boxlen}
 
 atom_style charge
 create_box 2 box
-create_atoms 1 random ${n_box} 312334 box  
+create_atoms 2 random ${n_box} 312334 box  
 mass * ${mass}
 
 pair_style lj/cut/coul/debye $(1/v_screencoul) ${cutofflj} $(7*v_screencoul)
@@ -60,7 +60,7 @@ run 100000
 unfix nvt
 undump 1
 
-region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) ${rad} zlo EDGE
+region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) 1 EDGE EDGE
 group ion region core
 fix charge ion adapt 0 atom charge 6.0
 fix nve all nve
