@@ -1,26 +1,27 @@
 variable t0 equal 20.0
 variable freltime atomfile relax_random.atomfile
 variable areltime atom "-v_t0*ln(v_freltime)"
-variable timenow equal vdisplace(0,1)
-variable rel_astep atom "v_retime<=v_timenow"
 variable gi_num equal count(gionized)
 variable zerocharge equal 0.0
 
-variable runs loop 100000
+fix nve all nve
+dump 1 all atom 1000 explo.dump
+timestep 0.1
+
+variable runs loop 0 100000
 label run_loop
-variable arelax atom (gmask(gionized))&&()
-if "${gi_num} > 0" then &
-"group grelex variable ions temp3" &
-"fix fixrelax grelex adapt 0 atom charge v_zerocharge"
-"run 1" 
-
-group grelex delete
-
+variable timenow equal 0.1*${runs}
+variable rel_astep atom "v_areltime<=v_timenow"
+variable arelax atom (gmask(gionized))&&(v_rel_astep)
+if "${gi_num}>0" then &
+"group grelex variable arelax" &
+"fix fixrelax grelex adapt 0 atom charge v_zerocharge" &
+"run 1" &
 else &
-"unfix fixrelax"
 "run upto 100000" &
 "jump SELF break"
 
+unfix fixrelax
+group grelex delete
 jump SELF run_loop
-
 label break
