@@ -25,5 +25,3 @@ mass * ${mass}
 
 pair_style lj/cut/coul/debye $(1/v_screencoul) ${cutofflj} $(7*v_screencoul)
 pair_coeff * * ${epsilon} ${sigma}
-
-

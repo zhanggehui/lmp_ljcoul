@@ -1,6 +1,6 @@
-include ../build_system.in
-include ../min_equil.in
+include ../infiles/build_system.in
+include ../infiles/min_equil.in
+include ../infiles/run_norelax.in
 
-#include ../rgs_and_chgs.in
-#include ../no_relax.in
-#include ../relax.in
+#include ../infiles/rgs_and_chgs.in
+#include ../infiles/run_relax.in
