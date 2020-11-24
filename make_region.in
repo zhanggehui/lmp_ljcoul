@@ -1,0 +1,30 @@
+#
+variable boxlen equal 100
+
+units real
+boundary p p p
+atom_style charge
+region box block 0.0 ${boxlen} 0.0 ${boxlen} 0.0 ${boxlen}
+create_box 5 box
+
+variable rad index 2 4 6 8 10
+variable a loop 5
+variable b loop 5
+label loop
+
+region cy$a cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) ${rad} EDGE EDGE
+region cyout$a cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) ${rad} EDGE EDGE side out
+if "$a == 1" then &
+"region dcy$a intersect 2 cy$a cy$a" &
+"create_atoms 1 random 100 312334 cy$a" &
+else &
+"region dcy$a intersect 2 cy$a cyout$b" &
+"create_atoms $a random 1000 312334 dcy$a" &
+"next b" 
+
+next a
+next rad
+jump SELF loop
+
+mass * 12
+write_data 1.data
