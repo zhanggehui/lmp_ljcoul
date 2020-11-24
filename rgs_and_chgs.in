@@ -1,0 +1,31 @@
+# cy1,2,3,4,5    ;   cyout1,2,3,4,5    ;    ring1,2,3,4,5
+
+variable aionized atom "random(0, 1, 543525)*(q*0+1)"
+group gionized empty
+
+variable rad index 2 4 6 8 10
+variable rad2 index 0 2 4 6 8
+variable r0 index 1
+variable a loop 5
+variable b loop 5
+
+label cylinder_loop
+
+region cy$a cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) ${rad} EDGE EDGE
+region cyout$a cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) ${rad} EDGE EDGE side out
+if "$a == 1" then &
+"region ring$a cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) ${rad} EDGE EDGE" &
+else &
+"region ring$a intersect 2 cy$a cyout$b" &
+"next b" 
+
+variable prob equal exp(-${rad2}/${r0})
+variable atemp atom (v_aionized<v_pro)&&(rmask(ring$a))
+group ions variable
+
+next a
+next rad
+next rad2
+jump SELF cylinder_loop
+
+delete b
