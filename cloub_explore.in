@@ -2,5 +2,5 @@ include ../infiles/build_system.in
 include ../infiles/min_equil.in
 #include ../infiles/run_norelax.in
 
-include ../infiles/rgs_and_chgs.in
-include ../infiles/run_relax.in
+#include ../infiles/rgs_and_chgs.in
+#include ../infiles/run_relax.in
