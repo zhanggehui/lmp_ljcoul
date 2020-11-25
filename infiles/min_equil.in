@@ -17,7 +17,7 @@ change_box all boundary p p s
 change_box all boundary p p f
 thermo_modify lost ignore
 variable dzbottom equal bound(all,zmin)-zlo-v_sigma
-change_box z delta $(v_dzbottom) 30
+change_box all z delta $(v_dzbottom) 30
 region bottomplane plane 0 0 $(zlo) 0 0 1
 fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
 fix nvt all nvt temp 300.0 300.0 100.0
