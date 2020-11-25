@@ -10,4 +10,4 @@ run 10000
 undump 1
 dump 1 all atom 1000 explo.dump
 timestep 1
-run 100000
+run 200000
