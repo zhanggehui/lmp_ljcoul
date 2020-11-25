@@ -1,13 +1,12 @@
-region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) 2.5 EDGE EDGE
+region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) 2 EDGE EDGE
 group ion region core
 variable newcharge equal 6.0
 fix charge ion adapt 0 atom charge v_newcharge
 fix nve all nve
 dump 1 all atom 100 explo.dump
 timestep 0.1
-run 10000
+run 20000
 
-undump 1
-dump 1 all atom 1000 explo.dump
+dump_modify 1 every 1000
 timestep 1
-run 200000
+run 100000
