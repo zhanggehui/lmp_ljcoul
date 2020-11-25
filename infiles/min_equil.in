@@ -16,7 +16,9 @@ unfix npt
 change_box all boundary p p s 
 change_box all boundary p p f z delta 0.0 40
 thermo_modify lost ignore
-variable zpos0 equal bound(all,zmin)
+
+variable zpos0_dy equal bound(all,zmin)
+variable zpos0 equal ${zpos0_dy}
 variable zpos equal ramp(${zpos0}-1,${zpos0})
 region bottomplane plane 0 0 $(bound(all,zmin)-1) 0 0 1 move NULL NULL v_zpos
 fix wall all wall/region bottomplane lj126 $(v_epsilon*2) ${sigma} ${cutofflj}
