@@ -2,7 +2,7 @@ currentdir=`pwd`
 cd /home/liufeng_pkuhpc/lustre2/zgh/zgh_lmp/lmp_use/
 gitget
 cd $currentdir
-source /home/liufeng_pkuhpc/lustre2/zgh/zgh_lmp/lmp_use/lammps_29Oct2020.sh
+source /home/liufeng_pkuhpc/lustre2/zgh/zgh_lmp/lmp_use/lammps_29Oct2020.sh auto
 
 rundir=$1
 sub_infile=$2
