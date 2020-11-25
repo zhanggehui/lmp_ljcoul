@@ -8,20 +8,19 @@ fix nve all nve
 dump 1 all atom 1000 explo.dump
 timestep 0.1
 
-variable runs loop 0 100000
-label run_loop
-variable timenow equal 0.1*${runs}
+variable timenow equal vdisplace(0,1)
 variable rel_astep atom "v_areltime<=v_timenow"
 variable arelax atom (gmask(gionized))&&(v_rel_astep)
-if "${gi_num}>0" then &
-"group grelex variable arelax" &
-"fix fixrelax grelex adapt 0 atom charge v_zerocharge" &
-"run 1" &
-else &
-"run upto 100000" &
-"jump SELF break"
 
+fix ahalt grelex halt 1 v_gi_num < 10 error continue
+run 100000 start 0 stop 100000 pre no post no every 1 &
+"variable rel_astep atom "v_areltime<=v_timenow" &
+"variable arelax atom (gmask(gionized))&&(v_rel_astep)" &
+"variable arelax atom (gmask(gionized))&&(v_rel_astep)" &
+"group grelex variable arelax" &
+"fix fixrelax grelex adapt 0 atom charge v_zerocharge"
+
+fix fixrelax gionized adapt 0 atom charge v_zerocharge
 unfix fixrelax
-group grelex delete
-jump SELF run_loop
-label break
+unfix ahalt
+run 100000 upto
