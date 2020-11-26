@@ -1,4 +1,4 @@
-region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) 2 EDGE EDGE
+region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) 2.5 EDGE EDGE
 group ion region core
 variable newcharge equal 6.0
 fix charge ion adapt 0 atom charge v_newcharge
