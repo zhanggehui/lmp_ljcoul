@@ -1,0 +1,14 @@
+change_box all boundary p p s 
+change_box all boundary p p f z delta 30 30
+thermo_modify lost ignore
+
+change_box all boundary p p f
+variable dzbottom equal bound(all,zmin)-zlo-v_sigma
+change_box all z delta $(v_dzbottom) 30
+region bottomplane plane 0 0 $(zlo) 0 0 1
+fix wall all wall/region bottomplane lj126 ${epsilon} ${sigma} ${cutofflj}
+dump 1 all atom 1000 npbc.dump
+fix nvt all nvt temp 300.0 300.0 100.0
+run 200000
+unfix nvt
+undump 1

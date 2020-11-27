@@ -1,4 +1,4 @@
 include ../infiles/build_system.in
 run 0
-variable reltime_random atom "random(0, 1, 6345636)*(q*0+1)"
+variable reltime_random atom "random(0, 1, 70976986)*(q*0+1)"
 write_dump all custom relax_random.dump id v_reltime_random

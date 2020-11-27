@@ -10,7 +10,7 @@ sub_infile=$2
 if [ ! -d $rundir ]; then
     mkdir $rundir 
     cd $rundir
-    lmp -in ../infiles/init.in
+    lmp -in ../infiles/init.in -echo log -log init.log
     source ../make_atomfile.sh
     sbatch /home/liufeng_pkuhpc/lustre2/zgh/zgh_lmp/lmp_use/sub_lmp.sh $sub_infile
     cd ..
