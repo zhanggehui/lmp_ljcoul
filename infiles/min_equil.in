@@ -5,7 +5,7 @@ minimize 0.0 1.0e-8 10000 20000
 velocity all create 300 61653 dist gaussian
 fix nvt all nvt temp 300.0 300.0 100.0
 run 10000
-unfix nvt 
+unfix nvt
 
 thermo 10000
 fix npt all npt temp 300.0 300.0 100.0 iso 0.0 0.0 100.0
