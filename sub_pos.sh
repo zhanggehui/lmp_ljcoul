@@ -9,4 +9,4 @@
 #SBATCH -A liufeng_g1
 
 hosts=`scontrol show hostname $SLURM_JOB_NODELIST`; echo $hosts
-source /home/liufeng_pkuhpc/lustre2/zgh/zgh_lmp/lmp_ljcoul/make_newtype.sh run1
+source /home/liufeng_pkuhpc/lustre2/zgh/zgh_lmp/lmp_ljcoul/make_newtype.sh run2
