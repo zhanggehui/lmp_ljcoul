@@ -1,12 +1,13 @@
 # cy1,2,3,4,5    ;   cyout1,2,3,4,5    ;    ring1,2,3,4,5
 
-variable aionized atom "random(0, 1, 543525)*(q*0+1)"
+variable aionized atom "random(0, 1, 3694567813845)*(q*0+1)"
 group gionized empty
 
 variable incident_rad index 3
 variable ring_num index 13
-variable rad loop ${ring_num}
 variable r0 index 1.5
+
+variable rad loop ${ring_num}
 variable a loop ${ring_num}
 variable b loop ${ring_num}
 
@@ -18,7 +19,7 @@ if "$a == 1" then &
 "region ring$a cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) ${rad} EDGE EDGE" &
 else &
 "region ring$a intersect 2 cy$a cyout$b" &
-"next b" 
+"next b"
 
 variable prob equal exp(-(${rad}-${incident_rad})/${r0})
 variable atemp atom (v_aionized<v_prob)&&(rmask(ring$a))

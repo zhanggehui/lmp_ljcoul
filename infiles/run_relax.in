@@ -1,28 +1,37 @@
 variable t0 equal 20.0
 variable freltime atomfile relax_random.atomfile
 variable areltime atom "-v_t0*ln(v_freltime)"
-write_dump all custom checkreltime.dump  v_areltime
-
 variable gi_num equal count(gionized)
 variable zerocharge equal 0.0
 
 fix nve all nve
-dump 1 all atom 1000 explo.dump
-timestep 0.1
+
+compute charge all property/atom q
+compute charge_chunk all chunk/atom c_charge compress yes
+dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
 
 variable timenow equal vdisplace(0,1)
-variable rel_astep atom "v_areltime<=v_timenow"
+variable rel_astep atom v_areltime<=v_timenow
 variable arelax atom (gmask(gionized))&&(v_rel_astep)
+group grelex dynamic gionized var arelax
 
+timestep 0.01
 fix ahalt grelex halt 1 v_gi_num < 10 error continue
 run 100000 start 0 stop 100000 pre no post no every 1 &
-"variable rel_astep atom "v_areltime<=v_timenow" &
-"variable arelax atom (gmask(gionized))&&(v_rel_astep)" &
-"variable arelax atom (gmask(gionized))&&(v_rel_astep)" &
-"group grelex variable arelax" &
 "fix fixrelax grelex adapt 0 atom charge v_zerocharge"
 
 fix fixrelax gionized adapt 0 atom charge v_zerocharge
 unfix fixrelax
 unfix ahalt
-run 100000 upto
+
+dump_modify 1 every 200
+timestep 0.1
+run 20000
+
+dump_modify 1 every 200
+timestep 0.5
+run 20000
+
+dump_modify 1 every 200
+timestep 1
+run 20000
