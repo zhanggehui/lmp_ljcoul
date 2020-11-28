@@ -8,4 +8,4 @@ awk '
         {
           printf("%s\n", $0);
         }
-      } ' explo.dump > explo_newtype.dump
+      } ' ./$1/explo.dump > ./$1/explo_newtype.dump

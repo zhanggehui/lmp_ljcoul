@@ -1,4 +1,4 @@
-region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) 2.5 EDGE EDGE
+region core cylinder z $((xlo+xhi)/2) $((ylo+yhi)/2) 3 EDGE EDGE
 group ion region core
 variable newcharge equal 6.0
 fix charge ion adapt 0 atom charge v_newcharge
@@ -6,11 +6,11 @@ fix nve all nve
 
 compute charge all property/atom q
 compute charge_chunk all chunk/atom c_charge compress yes
+dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
 
 compute cylinder_chunk all chunk/atom bin/cylinder z lower $(zhi-zlo) $((xhi+xlo)/2) $((yhi+ylo)/2) 0.0 50.0 25 discard yes
 fix densiyt_output all ave/chunk 1 3 10 cylinder_chunk density/mass file Density.dat
 
-dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
 timestep 0.1
 run 20000
 
