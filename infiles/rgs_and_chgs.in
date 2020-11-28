@@ -1,6 +1,6 @@
 # cy1,2,3,4,5    ;   cyout1,2,3,4,5    ;    ring1,2,3,4,5
 
-variable aionized atom "random(0, 1, 3694567813845)*(q*0+1)"
+variable aionized atom "random(0, 1, 36394)*(q*0+1)"
 group gionized empty
 
 variable incident_rad index 3
