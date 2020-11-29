@@ -17,7 +17,7 @@ group grelex dynamic gionized var arelax
 reset_timestep 0
 timestep 0.01
 fix ahalt grelex halt 1 v_gi_num < 10 error continue
-run 100000 pre no post no every 1 &
+run 100000 pre no post no every 10 &
 "fix fixrelax grelex adapt 0 atom charge v_zerocharge"
 
 fix fixrelax gionized adapt 0 atom charge v_zerocharge
