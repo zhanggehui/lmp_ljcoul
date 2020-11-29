@@ -3,7 +3,7 @@ timestep 0.01
 
 fix nve all nve
 variable newcharge equal 6.0
-fix charge ion adapt 0 atom charge v_newcharge
+fix charge gionized adapt 0 atom charge v_newcharge
 compute charge all property/atom q
 compute charge_chunk all chunk/atom c_charge compress yes
 dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
