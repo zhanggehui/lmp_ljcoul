@@ -10,14 +10,14 @@ compute charge all property/atom q
 compute charge_chunk all chunk/atom c_charge compress yes
 dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
 
-variable timenow equal vdisplace(0,1)
-variable rel_astep atom v_areltime<=v_timenow
+variable rel_astep atom v_areltime<=time
 variable arelax atom (gmask(gionized))&&(v_rel_astep)
 group grelex dynamic gionized var arelax
 
+reset_timestep 0
 timestep 0.01
 fix ahalt grelex halt 1 v_gi_num < 10 error continue
-run 100000 start 0 stop 100000 pre no post no every 1 &
+run 100000 pre no post no every 1 &
 "fix fixrelax grelex adapt 0 atom charge v_zerocharge"
 
 fix fixrelax gionized adapt 0 atom charge v_zerocharge
