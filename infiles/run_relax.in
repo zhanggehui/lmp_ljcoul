@@ -9,7 +9,7 @@ compute charge_chunk all chunk/atom c_charge compress yes
 dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
 compute cylinder_chunk all chunk/atom bin/cylinder z lower $(zhi-zlo) $((xhi+xlo)/2) $((yhi+ylo)/2) 0.0 50.0 25 discard yes
 fix densiyt_output all ave/chunk 1 5 10 cylinder_chunk density/mass file Density.dat
-run 0 
+run 1 
 unfix charge
 
 variable t0 equal 20.0
@@ -21,6 +21,7 @@ variable rel_astep atom v_areltime<=time
 variable arelax atom (gmask(gionized))&&(v_rel_astep)
 #group grelex dynamic gionized var arelax
 group grelex variable arelax
+fix fixrelax grelex adapt 0 atom charge v_zerocharge
 
 variable gi_cha atom q!=0
 group still_ioniz dynamic all var gi_cha
@@ -28,13 +29,15 @@ variable gi_num equal count(still_ioniz)
 
 fix ahalt all halt 10 v_gi_num < 10 error continue
 run 100000 pre no post no every 10 &
+"unfix fixrelax"
 "group grelex delete" &
 "group grelex variable arelax" &
 "fix fixrelax grelex adapt 0 atom charge v_zerocharge"
 
-fix fixrelax gionized adapt 0 atom charge v_zerocharge
-unfix fixrelax
 unfix ahalt
+fix fixrelax gionized adapt 0 atom charge v_zerocharge
+run 1
+unfix fixrelax
 
 dump_modify 1 every 200
 timestep 0.1
