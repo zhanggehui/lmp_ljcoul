@@ -1,41 +1,39 @@
-reset_timestep 0
-timestep 0.01
-
 fix nve all nve
 variable newcharge equal 6.0
 fix charge gionized adapt 0 atom charge v_newcharge
-compute charge all property/atom q
-compute charge_chunk all chunk/atom c_charge compress yes
-dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
-compute cylinder_chunk all chunk/atom bin/cylinder z lower $(zhi-zlo) $((xhi+xlo)/2) $((yhi+ylo)/2) 0.0 50.0 25 discard yes
-fix densiyt_output all ave/chunk 1 5 10 cylinder_chunk density/mass file Density.dat
-run 0 
+run 0
 unfix charge
 
-variable t0 equal 20.0
-variable freltime atomfile relax_random.atomfile
-variable areltime atom "-v_t0*ln(v_freltime)"
-#write_dump gionized custom 1.dump v_areltime q
-variable zerocharge equal 0.0
+reset_timestep 0
+timestep 0.01
 
-variable rel_astep atom v_areltime<(step*dt)
-variable arelax atom (gmask(gionized))&&(v_rel_astep)
-group grelex variable arelax
-variable gi_num equal count(gionized)-count(grelex)
+# charge to type
+compute charge all property/atom q
+compute charge_chunk all chunk/atom c_charge nchunk every compress yes
+dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
+
+# density
+compute cylinder_chunk all chunk/atom bin/cylinder z lower $(zhi-zlo) $((xhi+xlo)/2) $((yhi+ylo)/2) 0.0 50.0 25 discard yes
+fix densiyt_output all ave/chunk 1 5 10 cylinder_chunk density/mass file Density.dat
+
+variable t0 equal 20.0
+variable file_rel atomfile relax_random.atomfile
+variable atom_reltime atom -v_t0*ln(v_file_rel)
+write_dump gionized custom time.dump v_atom_reltime
+
+variable relatom_num atom v_atom_reltime<(step*dt)
+variable relaxed_atoms atom (gmask(gionized))&&(v_relatom_num)
+group grelex variable relaxed_atoms
+variable zerocharge equal 0.0
 fix fixrelax grelex adapt 0 atom charge v_zerocharge
 
-#variable gi_cha atom q!=0
-#group still_ioniz dynamic all var gi_cha
-#variable gi_num equal count(still_ioniz)
-
-fix ahalt all halt 10 v_gi_num < 10 error soft
-run 20000 pre no post no every 10 &
+run 20000 pre yes post no every 10 &
 "unfix fixrelax" &
 "group grelex delete" &
-"group grelex variable arelax" &
+"group grelex variable relaxed_atoms" &
 "fix fixrelax grelex adapt 0 atom charge v_zerocharge"
 
-unfix ahalt
+unfix fixrelax
 fix fixrelax gionized adapt 0 atom charge v_zerocharge
 run 0
 unfix fixrelax
