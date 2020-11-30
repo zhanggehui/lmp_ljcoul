@@ -1,4 +1,4 @@
-reset_timestep 1
+reset_timestep 0
 timestep 0.01
 
 variable t0 equal 20.0
@@ -12,7 +12,7 @@ group grelex variable relaxed_atoms
 variable zerocharge equal 0.0
 fix fixrelax grelex adapt 0 atom charge v_zerocharge
 
-run 20000 pre yes post yes every 10 &
+run 20000 pre no post no every 10 &
 "unfix fixrelax" &
 "group grelex delete" &
 "group grelex variable relaxed_atoms" &
