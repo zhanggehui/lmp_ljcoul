@@ -1,6 +1,10 @@
 reset_timestep 0
 timestep 0.01
 
+# density
+compute cylinder_chunk all chunk/atom bin/cylinder z lower $(zhi-zlo) $((xhi+xlo)/2) $((yhi+ylo)/2) 0.0 50.0 25 discard yes
+fix densiyt_output all ave/chunk 1 5 10 cylinder_chunk density/mass file Density.dat
+
 variable t0 equal 20.0
 variable file_rel atomfile relax_random.atomfile
 variable atom_reltime atom -v_t0*ln(v_file_rel)
