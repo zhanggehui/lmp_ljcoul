@@ -37,3 +37,17 @@ variable newcharge equal 6.0
 fix charge gionized adapt 0 atom charge v_newcharge
 run 0
 unfix charge
+
+reset_timestep 0
+timestep 0.01
+
+fix nve all nve
+
+# charge to type
+compute charge all property/atom q
+compute charge_chunk all chunk/atom c_charge nchunk every compress yes
+dump 1 all custom 100 explo.dump id c_charge_chunk xs ys zs
+
+# density
+compute cylinder_chunk all chunk/atom bin/cylinder z lower $(zhi-zlo) $((xhi+xlo)/2) $((yhi+ylo)/2) 0.0 50.0 25 discard yes
+fix densiyt_output all ave/chunk 1 5 10 cylinder_chunk density/mass file Density.dat
